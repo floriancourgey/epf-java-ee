@@ -19,8 +19,12 @@ public class UserDaoImpl implements UserDao {
 	private static final String USER = "root";
 	private static final String PASSWORD = "";
 
+	private static UserDao INSTANCE = null;
+	
+	private UserDaoImpl(){
+	}
+	
 	static {
-		// Driver
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (Exception e) {
@@ -88,5 +92,11 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
-
+	public static UserDao getInstance(){
+		if(INSTANCE == null) {
+			INSTANCE = new UserDaoImpl();
+		}
+		return INSTANCE;
+	}
+	
 }

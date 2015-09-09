@@ -10,9 +10,11 @@ import com.formation.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
+
+	private static UserService INSTANCE = null;
 	
-	public UserServiceImpl() {
-		this.userDao = new UserDaoImpl();
+	private UserServiceImpl() {
+		this.userDao = UserDaoImpl.getInstance();
 	}
 	
 	@Override
@@ -25,4 +27,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.getById(id);
 	}
 
+	public static UserService getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new UserServiceImpl();
+		}
+		return INSTANCE;
+	}
+	
 }

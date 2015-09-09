@@ -6,7 +6,7 @@ import com.formation.dao.impl.UserDaoImpl;
 public class Main {
 
 	public static void main(String[] args) {
-		UserDao userDao = new UserDaoImpl();
+		UserDao userDao = UserDaoImpl.getInstance();
 		System.out.println(userDao.getAll());
 	}
 }
