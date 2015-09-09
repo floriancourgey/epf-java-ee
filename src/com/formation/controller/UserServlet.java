@@ -2,6 +2,7 @@ package com.formation.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,9 +29,12 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Trying hello world console output when calling Servlet
-		System.out.println("Hello world");
+
+		request.setAttribute("users", userService.getAll());
 		
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/display.jsp"));
+		
+		rd.forward(request, response);
 		
 		
 	}
