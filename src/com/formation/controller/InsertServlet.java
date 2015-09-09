@@ -36,8 +36,8 @@ public class InsertServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String login = (String) request.getAttribute("login");
-		String password = (String) request.getAttribute("password");
+		String login = (String) request.getParameter("login");
+		String password = (String) request.getParameter("password");
 		User user = new User();
 		user.setLogin(login);
 		user.setPassword(password);
