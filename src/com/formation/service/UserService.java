@@ -9,4 +9,5 @@ public interface UserService {
 	
 	User getById(Long id);
 
+	void insert(User user);
 }

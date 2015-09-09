@@ -27,6 +27,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.getById(id);
 	}
 
+	@Override
+	public void insert(User user) {
+		userDao.insert(user);
+	}
+	
 	public static UserService getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new UserServiceImpl();

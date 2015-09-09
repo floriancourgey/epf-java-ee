@@ -1,24 +1,31 @@
 package com.formation.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user")
 public class User {
-	private Long id;
+	@Id
+	private int id;
 	private String login;
 	private String password;
 
 	public User() {
 	}
 
-	public User(Long id, String login, String password) {
+	public User(int id, String login, String password) {
 		this.id = id;
 		this.login = login;
 		this.password = password;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -50,7 +57,7 @@ public class User {
 			user = new User();
 		}
 
-		public Builder setId(Long id) {
+		public Builder setId(int id) {
 			user.id = id;
 			return this;
 		}

@@ -9,7 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import com.formation.dao.UserDao;
+import com.formation.dao.manager.DaoManager;
 import com.formation.dao.utils.DaoUtils;
 import com.formation.entity.User;
 import com.formation.exception.DAOException;
@@ -34,30 +38,37 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public List<User> getAll() {
-		Connection connection = null;
-		Statement statement = null;
-		ResultSet resultSet = null;
-		try {
-			connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			statement = connection.createStatement();
-			String sql = "SELECT * FROM user";
-			resultSet = statement.executeQuery(sql);
-			List<User> userList = new ArrayList<User>();
-			while (resultSet.next()) {
-				User user = User.builder()
-						.setId(resultSet.getLong("id"))
-						.setLogin(resultSet.getString("login"))
-						.setPassword(resultSet.getString("password"))
-						.build();
-				userList.add(user);
-			}
-			return userList;
-		} catch (SQLException e) {
-			throw new DAOException("TODO better message", e);
-		} finally {
-			DaoUtils.closeAll(resultSet, statement, connection);
-		}
+		EntityManagerFactory entityManagerFactory = DaoManager.getInstance().getEntityManagerFactory();
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		return entityManager.createQuery("select u from User u").getResultList();
 	}
+	
+//	@Override
+//	public List<User> getAll() {
+//		Connection connection = null;
+//		Statement statement = null;
+//		ResultSet resultSet = null;
+//		try {
+//			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+//			statement = connection.createStatement();
+//			String sql = "SELECT * FROM user";
+//			resultSet = statement.executeQuery(sql);
+//			List<User> userList = new ArrayList<User>();
+//			while (resultSet.next()) {
+//				User user = User.builder()
+//						.setId(resultSet.getLong("id"))
+//						.setLogin(resultSet.getString("login"))
+//						.setPassword(resultSet.getString("password"))
+//						.build();
+//				userList.add(user);
+//			}
+//			return userList;
+//		} catch (SQLException e) {
+//			throw new DAOException("TODO better message", e);
+//		} finally {
+//			DaoUtils.closeAll(resultSet, statement, connection);
+//		}
+//	}
 
 	@Override
 	public User getById(Long id) {
@@ -72,7 +83,7 @@ public class UserDaoImpl implements UserDao {
 			List<User> userList = new ArrayList<User>();
 			while (resultSet.next()) {
 				User user = User.builder()
-						.setId(resultSet.getLong("id"))
+						.setId(resultSet.getInt("id"))
 						.setLogin(resultSet.getString("login"))
 						.setPassword(resultSet.getString("password"))
 						.build();
@@ -92,6 +103,11 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
+	@Override
+	public void insert(User user) {
+		// TODO
+	}
+	
 	public static UserDao getInstance(){
 		if(INSTANCE == null) {
 			INSTANCE = new UserDaoImpl();

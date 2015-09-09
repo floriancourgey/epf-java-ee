@@ -9,4 +9,5 @@ public interface UserDao {
 	
 	User getById(Long id);
 	
+	void insert(User user);
 }
