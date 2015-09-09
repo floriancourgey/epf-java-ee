@@ -29,11 +29,10 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setAttribute("users", userService.getAll());
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(
-				response.encodeURL("/WEB-INF/jsp/display.jsp"));
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/jsp/display.jsp"));
 		rd.forward(request, response);
 	}
 

@@ -17,7 +17,7 @@ import com.formation.exception.DAOException;
 public class UserDaoImpl implements UserDao {
 	private static final String URL = "jdbc:mysql://127.0.0.1:3306/formation";
 	private static final String USER = "root";
-	private static final String PASSWORD = "";
+	private static final String PASSWORD = "root";
 
 	private static UserDao INSTANCE = null;
 	
@@ -53,7 +53,7 @@ public class UserDaoImpl implements UserDao {
 			}
 			return userList;
 		} catch (SQLException e) {
-			throw new DAOException("TODO better message");
+			throw new DAOException("TODO better message", e);
 		} finally {
 			DaoUtils.closeAll(resultSet, statement, connection);
 		}
