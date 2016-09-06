@@ -1,15 +1,27 @@
 package com.floriancourgey.java.cours1.models;
 
 import java.util.Date;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "computer")
 public class Computer {
+	
+	@Id @GeneratedValue
+	@Column(name = "id")
 	private long id;
+	
+	@Column(name = "name")
 	private String name;
+	
+	@Column(name = "introduced")
 	private Date introduced;
+	
+	@Column(name = "discontinued")
 	private Date discontinued;
+	
+	@ManyToOne(targetEntity = Company.class)
 	private Company company;
-	
-	
 	
 	public long getId() {
 		return id;

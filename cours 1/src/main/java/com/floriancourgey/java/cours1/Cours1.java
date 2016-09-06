@@ -1,8 +1,13 @@
 package com.floriancourgey.java.cours1;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.floriancourgey.java.cours1.models.Company;
 import com.floriancourgey.java.cours1.models.Computer;
 
 public class Cours1 {
@@ -15,9 +20,11 @@ public class Cours1 {
 		System.out.println("Bienvenue sur la forma du cours 1");
 		sc = new Scanner(System.in);
 		
+		getComputers();
+		
 		while(continuer){
 			System.out.println("Menu\n");
-			System.out.println("1. Afficher les ordinateurs");
+			System.out.println("1. Afficher les "+computers.size()+" ordinateurs");
 			System.out.println("2. Ajouter un ordinateur");
 //			System.out.println("3. Quitter");
 			System.out.println("Votre choix ? ");
@@ -45,7 +52,10 @@ public class Cours1 {
 	 * Fetch la liste des computers depuis la bdd
 	 */
 	private void getComputers(){
-		
+		Session session = HibernateUtils.currentSession();
+		List<Computer> list = (List<Computer>)session.createQuery("from Computer").list();
+		System.out.println(list.size());
+		computers = (ArrayList<Computer>)list;
 	}
 	
 	/**

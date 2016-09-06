@@ -1,9 +1,21 @@
 package com.floriancourgey.java.cours1.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "company")
 public class Company {
-	private long id;
-	private String name;
 	
+	@Id @GeneratedValue
+	@Column(name = "id")
+	private long id;
+	
+	@Column(name = "name")
+	private String name;
 	
 	public long getId() {
 		return id;
