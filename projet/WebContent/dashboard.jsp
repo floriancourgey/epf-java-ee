@@ -1,9 +1,14 @@
+ <%@page import="java.util.*"%>
+ <%@page import="com.floriancourgey.java.cours1.models.Computer"%>
+ 
 <jsp:include page="include/header.jsp" />
+
+<% ArrayList<Computer> computers = (ArrayList<Computer>) request.getAttribute("computers"); %>
 
 <div class="container-fluid">
   <div class="row">
   	<div class="col-md-12">
-	<h1 id="homeTitle">456 Computers found</h1>
+	<h1 id="homeTitle"><%= computers.size() %> Computers found</h1>
 	</div>
   </div>
 	<div class="row" id="actions">
@@ -15,6 +20,8 @@
 				value="Filter by name"
 				class="btn btn-primary">
 		</form>
+		</div>
+		<div>
 		</div>
 		<div class="col-md-2">
 		<a id="add" href="addComputer.jsp" role="button" class="btn btn-success pull-right">Add Computer</a>
@@ -36,13 +43,14 @@
 				</tr>
 			</thead>
 			<tbody>
-
+				<% for(Computer c : computers) { %>
 				<tr>
-					<td><a href="#" onclick="">ThinkPad T420</a></td>
-					<td>2011-01-01</td>
-					<td>2013-03-04</td>
-					<td>Lenovo</td>
+					<td><a href="#" onclick=""><%= c.getName() %></a></td>
+					<td><%= c.getIntroduced() %></td>
+					<td><%= c.getDiscontinued() %></td>
+					<td><%= c.getCompany() %></td>
 				</tr>
+				<% } %>
 				<tr>
 					<td><a href="#">Precision 3500</a></td>
 					<td>2010-05-07</td>
