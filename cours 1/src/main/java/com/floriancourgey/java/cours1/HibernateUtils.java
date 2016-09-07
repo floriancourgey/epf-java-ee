@@ -14,12 +14,6 @@ public class HibernateUtils {
 	static {
 	   try {
 		   // Crée la SessionFactory
-//		   sessionFactory = new Configuration().configure().buildSessionFactory();
-//		   sessionFactory = new AnnotationConfiguration().
-//                   configure().
-//                   addPackage("com.xyz") //add package if used.
-//                   addAnnotatedClass(Employee.class).
-//                   buildSessionFactory();
 		   Configuration configuration = new Configuration()
 				   .addPackage("com.floriancourgey.java.cours1.models")
 				   .addAnnotatedClass(Computer.class)

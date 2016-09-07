@@ -1,13 +1,10 @@
 package com.floriancourgey.java.cours1;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import com.floriancourgey.java.cours1.models.Company;
+import com.floriancourgey.java.cours1.dao.ComputerDao;
 import com.floriancourgey.java.cours1.models.Computer;
 
 public class Cours1 {
@@ -15,12 +12,13 @@ public class Cours1 {
 	private ArrayList<Computer> computers = new ArrayList<Computer>();
 	private boolean continuer = true;
 	private Scanner sc;
+	private ComputerDao computerDao = new ComputerDao();
 	
 	public Cours1(){
 		System.out.println("Bienvenue sur la forma du cours 1");
 		sc = new Scanner(System.in);
 		
-		getComputers();
+		computers = computerDao.getComputers();
 		
 		while(continuer){
 			System.out.println("Menu\n");
@@ -49,22 +47,12 @@ public class Cours1 {
 	}
 	
 	/**
-	 * Fetch la liste des computers depuis la bdd
-	 */
-	private void getComputers(){
-		Session session = HibernateUtils.currentSession();
-		List<Computer> list = (List<Computer>)session.createQuery("from Computer").list();
-		System.out.println(list.size());
-		computers = (ArrayList<Computer>)list;
-	}
-	
-	/**
 	 * Affiche la liste des computers
 	 */
 	private void index(){
 		System.out.println("Liste des ordinateurs");
 		for(Computer computer : computers){
-			System.out.println(computer);
+			System.out.println(computer.getCompany());
 		}
 	}
 	
