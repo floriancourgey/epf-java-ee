@@ -1,9 +1,11 @@
- <%@page import="java.util.*"%>
- <%@page import="com.floriancourgey.java.cours1.models.Computer"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.*"%>
+<%@page import="com.floriancourgey.java.cours1.models.Computer"%>
  
 <jsp:include page="include/header.jsp" />
 
 <% ArrayList<Computer> computers = (ArrayList<Computer>) request.getAttribute("computers"); %>
+<% SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY"); %>
 
 <div class="container-fluid">
   <div class="row">
@@ -46,27 +48,15 @@
 				<% for(Computer c : computers) { %>
 				<tr>
 					<td><a href="#" onclick=""><%= c.getName() %></a></td>
-					<td><%= c.getIntroduced() %></td>
-					<td><%= c.getDiscontinued() %></td>
-					<td><%= c.getCompany() %></td>
+					<td><%= (c.getIntroduced()==null)?"-":format.format(c.getIntroduced()) %></td>
+					<td><%= (c.getDiscontinued()==null)?"-":format.format(c.getDiscontinued()) %></td>
+					<td><%= (c.getCompany()==null)?"-":c.getCompany().getName() %></td>
 				</tr>
 				<% } %>
-				<tr>
-					<td><a href="#">Precision 3500</a></td>
-					<td>2010-05-07</td>
-					<td>2012-06-01</td>
-					<td>Dell</td>
-				</tr>
-				<tr>
-					<td><a href="#">Macbook Air</a></td>
-					<td>2005-05-09</td>
-					<td>2008-06-06</td>
-					<td>Apple</td>
-				</tr>
 			</tbody>
 		</table>
 		</div>
-		</div>
+	</div>
 </div>
 
 <jsp:include page="include/footer.jsp" />

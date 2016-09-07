@@ -16,9 +16,9 @@ import com.floriancourgey.java.cours1.models.Computer;
 @WebServlet("/computers")
 public class ComputerServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
+		String google = request.getParameter("google");
 		ComputerDao computerDao = new ComputerDao();
 		ArrayList<Computer> computers = computerDao.getComputers();
-		System.out.println("YOLOOOOOOOOO "+computers.size());
 		request.setAttribute("computers", computers);
 		request.getRequestDispatcher("/dashboard.jsp" ).forward(request, response);
     }
