@@ -33,4 +33,25 @@ public class ComputerDao {
 		
 		return computer.getId();
 	}
+
+	/**
+	 * le getByGoogle permet de rechercher dans tous les champs de l'entité en LIKE %% case insensitive
+	 * 
+	 * par exemple la recherche 'think' donne
+	 * - les ordinateurs avec le nom qui contient 'think'
+	 * - les ordinateurs avec l'entreprise qui a un nom qui contient 'think'
+	 * 
+	 * @param google
+	 * @return
+	 */
+	public ArrayList<Computer> getByGoogle(String google) {
+		google = google.toLowerCase();
+		String hql = "from Computer c where c.name LIKE :google OR c.company.name LIKE :google";
+		Session session = HibernateUtils.currentSession();
+		ArrayList<Computer> computers = (ArrayList<Computer>)session
+			.createQuery(hql)
+			.setParameter("google", "%"+google+"%")
+			.getResultList();
+		return computers;
+	}
 }

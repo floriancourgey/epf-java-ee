@@ -15,11 +15,18 @@ import com.floriancourgey.java.cours1.models.Computer;
 
 @WebServlet("/computers")
 public class ComputerServlet extends HttpServlet {
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 		String google = request.getParameter("google");
-		// computers list
+		// computers list (getAll or getByGoogle)
 		ComputerDao computerDao = new ComputerDao();
-		ArrayList<Computer> computers = computerDao.getAll();
+		ArrayList<Computer> computers = new ArrayList<>();
+		if(google != null && google.length()>0){
+			computers = computerDao.getByGoogle(google);
+		} else {
+			computers = computerDao.getAll();
+		}
+			
 		request.setAttribute("computers", computers);
 		// eventually added computer
 		String computerAddedParam = request.getParameter("c");
@@ -41,6 +48,6 @@ public class ComputerServlet extends HttpServlet {
 			}
 		}
 		// send
-		request.getRequestDispatcher("/dashboard.jsp" ).forward(request, response);
+		request.getRequestDispatcher("/computers.jsp" ).forward(request, response);
     }
 }

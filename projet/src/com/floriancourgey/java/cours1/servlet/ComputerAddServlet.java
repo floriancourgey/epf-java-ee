@@ -28,7 +28,7 @@ public class ComputerAddServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 		ArrayList<Company> companies = companyDao.getAll();
 		request.setAttribute("companies", companies);
-		request.getRequestDispatcher("/addComputer.jsp" ).forward(request, response);
+		request.getRequestDispatcher("/computersAdd.jsp" ).forward(request, response);
     }
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{

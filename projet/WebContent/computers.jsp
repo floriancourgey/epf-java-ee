@@ -23,10 +23,10 @@
 	<div class="row" id="actions">
 		<div class="col-md-10">
 		<form action="" method="GET" class="form-inline" role="form">
-			<input type="search" id="searchbox" name="search" class="form-control"
-				value="" placeholder="Search name">
+			<input type="search" id="searchbox" name="google" class="form-control"
+				value="" placeholder="Try 'think' or 'apple'">
 			<input type="submit" id="searchsubmit"
-				value="Filter by name"
+				value="Google"
 				class="btn btn-primary">
 		</form>
 		</div>
