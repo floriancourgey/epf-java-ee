@@ -9,7 +9,7 @@ import com.floriancourgey.java.cours1.models.Company;
 @Table(name = "computer")
 public class Computer {
 	
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
 	

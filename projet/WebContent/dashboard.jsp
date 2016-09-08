@@ -6,6 +6,7 @@
 
 <% ArrayList<Computer> computers = (ArrayList<Computer>) request.getAttribute("computers"); %>
 <% SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY"); %>
+<% Computer computerAdded = (Computer) request.getAttribute("computerAdded"); %>
 
 <div class="container-fluid">
   <div class="row">
@@ -13,6 +14,10 @@
 	<h1 id="homeTitle"><%= computers.size() %> Computers found</h1>
 	</div>
   </div>
+  <% if(computerAdded != null){ %>
+  <div>The computer '<%= computerAdded.getName() %>' has been successfuly added.
+  </div>
+  <% } %>
 	<div class="row" id="actions">
 		<div class="col-md-10">
 		<form action="" method="GET" class="form-inline" role="form">
@@ -26,7 +31,7 @@
 		<div>
 		</div>
 		<div class="col-md-2">
-		<a id="add" href="addComputer.jsp" role="button" class="btn btn-success pull-right">Add Computer</a>
+		<a id="add" href="computers/add" role="button" class="btn btn-success pull-right">Add Computer</a>
 		</div>
 	</div>
 	<div class="row">
