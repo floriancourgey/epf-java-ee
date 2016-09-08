@@ -15,8 +15,10 @@
 	</div>
   </div>
   <% if(computerAdded != null){ %>
-  <div>The computer '<%= computerAdded.getName() %>' has been successfuly added.
-  </div>
+  <div class="alert alert-success alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Success</strong> The computer '<%= computerAdded.getName() %>' has been successfuly added.
+</div>
   <% } %>
 	<div class="row" id="actions">
 		<div class="col-md-10">

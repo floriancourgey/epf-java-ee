@@ -15,7 +15,7 @@ public class ComputerDao {
 	 * Fetch la liste des computers depuis la bdd
 	 * @return ArrayList<Computer>
 	 */
-	public ArrayList<Computer> getComputers(){
+	public ArrayList<Computer> getAll(){
 		Session session = HibernateUtils.currentSession();
 		List<Computer> list = (List<Computer>)session.createQuery("from Computer").getResultList();
 		session.close();

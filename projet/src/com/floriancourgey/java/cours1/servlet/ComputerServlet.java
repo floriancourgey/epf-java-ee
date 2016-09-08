@@ -19,15 +19,16 @@ public class ComputerServlet extends HttpServlet {
 		String google = request.getParameter("google");
 		// computers list
 		ComputerDao computerDao = new ComputerDao();
-		ArrayList<Computer> computers = computerDao.getComputers();
+		ArrayList<Computer> computers = computerDao.getAll();
 		request.setAttribute("computers", computers);
 		// eventually added computer
 		String computerAddedParam = request.getParameter("c");
-		if(computerAddedParam != null){
+		if(computerAddedParam != null && computerAddedParam.length() > 0){
 			long computerAddedId = 0;
 			try{
 				computerAddedId = Integer.parseInt(computerAddedParam);
-			} catch (NumberFormatException nfe){}
+			}
+			catch(NumberFormatException nfe){}
 			if(computerAddedId > 0){
 				Computer computerAdded = null;
 				for(Computer c : computers){

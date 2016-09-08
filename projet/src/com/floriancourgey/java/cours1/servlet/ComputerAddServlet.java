@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +26,7 @@ public class ComputerAddServlet extends HttpServlet {
 	private static SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
-		ArrayList<Company> companies = companyDao.getCompanies();
+		ArrayList<Company> companies = companyDao.getAll();
 		request.setAttribute("companies", companies);
 		request.getRequestDispatcher("/addComputer.jsp" ).forward(request, response);
     }
@@ -40,7 +39,7 @@ public class ComputerAddServlet extends HttpServlet {
 		/// introduced
 		Date introduced = null;
 		String introducedParam = request.getParameter("introduced");
-		if(introducedParam != null){
+		if(introducedParam != null && introducedParam.length() > 0){
 			try {
 				introduced = format.parse(introducedParam);
 			} catch (ParseException e) {
@@ -51,7 +50,7 @@ public class ComputerAddServlet extends HttpServlet {
 		/// discontinued
 		Date discontinued = null;
 		String discontinuedParam = request.getParameter("discontinued");
-		if(discontinuedParam != null){
+		if(discontinuedParam != null && introducedParam.length() > 0){
 			try {
 				discontinued = format.parse(discontinuedParam);
 			} catch (ParseException e) {
@@ -60,7 +59,19 @@ public class ComputerAddServlet extends HttpServlet {
 			}
 		}
 		/// company
-		Company company;
+		Company company = null;
+		String companyParam = request.getParameter("company");
+		if(companyParam != null && companyParam.length() > 0){
+			long companyId = 0;
+			try{
+				companyId = Integer.parseInt(companyParam);
+			}
+			catch(NumberFormatException nfe){}
+			if(companyId > 0){
+				company = companyDao.get(companyId);			
+			}
+		}
+		computer.setCompany(company);
 		// set parameters
 		computer.setName(name);
 		computer.setIntroduced(introduced);
