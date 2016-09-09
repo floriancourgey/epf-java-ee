@@ -26,6 +26,7 @@
 			<input type="search" id="searchbox" name="google" class="form-control"
 				value="" placeholder="Try 'think' or 'apple'">
 			<input type="submit" id="searchsubmit"
+				required="required"
 				value="Google"
 				class="btn btn-primary">
 		</form>
@@ -54,7 +55,7 @@
 			<tbody>
 				<% for(Computer c : computers) { %>
 				<tr>
-					<td><a href="#" onclick=""><%= c.getName() %></a></td>
+					<td><%= c.getName() %></td>
 					<td><%= (c.getIntroduced()==null)?"-":format.format(c.getIntroduced()) %></td>
 					<td><%= (c.getDiscontinued()==null)?"-":format.format(c.getDiscontinued()) %></td>
 					<td><%= (c.getCompany()==null)?"-":c.getCompany().getName() %></td>
