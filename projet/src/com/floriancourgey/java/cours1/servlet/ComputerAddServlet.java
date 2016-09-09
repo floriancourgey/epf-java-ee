@@ -1,10 +1,8 @@
 package com.floriancourgey.java.cours1.servlet;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -49,7 +47,7 @@ public class ComputerAddServlet extends HttpServlet {
 		/// INTRODUCED
 		ArrayList<FormValidator> introducedValidators = new ArrayList<FormValidator>();
 		introducedValidators.add(new FormValidatorMinLength(9));
-		introducedValidators.add(new FormValidatorDate("dd/MM/YYYY"));
+		introducedValidators.add(new FormValidatorDate(format));
 		HashMap<String, String> introducedAttributes = new HashMap<String, String>();
 		introducedAttributes.put("placeholder", "Enter computer's introduced date");
 		introducedAttributes.put("required", "required");
@@ -62,7 +60,7 @@ public class ComputerAddServlet extends HttpServlet {
 		/// DISCONTINUED
 		ArrayList<FormValidator> discontinuedValidators = new ArrayList<FormValidator>();
 		discontinuedValidators.add(new FormValidatorMinLength(9));
-		discontinuedValidators.add(new FormValidatorDate("dd/MM/YYYY"));
+		discontinuedValidators.add(new FormValidatorDate(format));
 		HashMap<String, String> discontinuedAttributes = new HashMap<String, String>();
 		discontinuedAttributes.put("placeholder", "Enter computer's discontinued date");
 		discontinuedAttributes.put("required", "required");
@@ -92,67 +90,31 @@ public class ComputerAddServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 		createForm();
 		form.handle(request);
+		// IS VALID
 		if(form.isValid()){
 			// do the hibernate things
-			response.getWriter().println("is valid");
-		} else {
+			Computer computer = new Computer();
+			// set parameters (they're safe as their validators are valid)
+			computer.setName(request.getParameter("name"));
+			try {
+				computer.setIntroduced(format.parse(request.getParameter("introduced")));
+				computer.setDiscontinued(format.parse(request.getParameter("discontinued")));
+			} catch(Exception e){
+				e.printStackTrace(); // should never hppn (TODO gérer ça)
+				return;
+			}
+			// save
+			computerDao.save(computer);
+			// redirect
+			response.sendRedirect("/projet-java/computers?c="+computer.getId());
+		}
+		// NOT VALID
+		else {
 			// display computerAdd.jsp with errors
-//			response.getWriter().println("NOT valid");
-			
 			ArrayList<Company> companies = companyDao.getAll();
 			request.setAttribute("companies", companies);
 			request.setAttribute("form", form);
 			request.getRequestDispatcher("/computersAdd.jsp" ).forward(request, response);
 		}
-		/*
-		Computer computer = new Computer();
-		// check parameters
-		/// name
-		String name = request.getParameter("name");
-		/// introduced
-		Date introduced = null;
-		String introducedParam = request.getParameter("introduced");
-		if(introducedParam != null && introducedParam.length() > 0){
-			try {
-				introduced = format.parse(introducedParam);
-			} catch (ParseException e) {
-				e.printStackTrace();
-				return;
-			}
-		}
-		/// discontinued
-		Date discontinued = null;
-		String discontinuedParam = request.getParameter("discontinued");
-		if(discontinuedParam != null && introducedParam.length() > 0){
-			try {
-				discontinued = format.parse(discontinuedParam);
-			} catch (ParseException e) {
-				e.printStackTrace();
-				return;
-			}
-		}
-		/// company
-		Company company = null;
-		String companyParam = request.getParameter("company");
-		if(companyParam != null && companyParam.length() > 0){
-			long companyId = 0;
-			try{
-				companyId = Integer.parseInt(companyParam);
-			}
-			catch(NumberFormatException nfe){}
-			if(companyId > 0){
-				company = companyDao.get(companyId);			
-			}
-		}
-		computer.setCompany(company);
-		// set parameters
-		computer.setName(name);
-		computer.setIntroduced(introduced);
-		computer.setDiscontinued(discontinued);
-		// save
-		computerDao.save(computer);
-		// redirect
-		response.sendRedirect("/projet-java/computers?c="+computer.getId());
-		*/
 	}
 }

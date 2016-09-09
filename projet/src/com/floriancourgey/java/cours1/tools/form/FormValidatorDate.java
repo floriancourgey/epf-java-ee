@@ -4,15 +4,18 @@ import java.text.SimpleDateFormat;
 
 public class FormValidatorDate extends FormValidator {
 	
-	private String format;
+	private SimpleDateFormat format;
 	
 	public FormValidatorDate(String format){
+		this.format = new SimpleDateFormat(format);
+	}
+	public FormValidatorDate(SimpleDateFormat format){
 		this.format = format;
 	}
 	
 	public void handle(String value) {
 		try {
-			new SimpleDateFormat(format).parse(value);
+			format.parse(value);
 		} catch (Exception ex) {
 			error = "La date "+value+" ne correspond pas avec le format "+format;
 		}
