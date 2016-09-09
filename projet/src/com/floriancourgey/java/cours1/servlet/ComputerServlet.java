@@ -1,6 +1,7 @@
 package com.floriancourgey.java.cours1.servlet;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -16,6 +17,8 @@ import com.floriancourgey.java.cours1.models.Computer;
 @WebServlet("/computers")
 public class ComputerServlet extends HttpServlet {
 	
+	private static final SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 		String google = request.getParameter("google");
 		// computers list (getAll or getByGoogle)
@@ -26,8 +29,9 @@ public class ComputerServlet extends HttpServlet {
 		} else {
 			computers = computerDao.getAll();
 		}
-			
+		request.setAttribute("google", google);			
 		request.setAttribute("computers", computers);
+		request.setAttribute("format", format);
 		// eventually added computer
 		String computerAddedParam = request.getParameter("c");
 		if(computerAddedParam != null && computerAddedParam.length() > 0){
