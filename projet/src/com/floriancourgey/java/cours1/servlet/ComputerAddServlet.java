@@ -79,15 +79,11 @@ public class ComputerAddServlet extends HttpServlet {
 	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
-		// get companies
-		ArrayList<Company> companies = companyDao.getAll();
-		request.setAttribute("companies", companies);
 		createForm();
-		request.setAttribute("form", form);
-		request.getRequestDispatcher("/computersAdd.jsp" ).forward(request, response);
+		displayComputersAdd(request, response);
     }
 	
-	public void doPost(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		createForm();
 		form.handle(request);
 		// IS VALID
@@ -111,10 +107,14 @@ public class ComputerAddServlet extends HttpServlet {
 		// NOT VALID
 		else {
 			// display computerAdd.jsp with errors
-			ArrayList<Company> companies = companyDao.getAll();
-			request.setAttribute("companies", companies);
-			request.setAttribute("form", form);
-			request.getRequestDispatcher("/computersAdd.jsp" ).forward(request, response);
+			displayComputersAdd(request, response);
 		}
+	}
+	
+	private void displayComputersAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		ArrayList<Company> companies = companyDao.getAll();
+		request.setAttribute("companies", companies);
+		request.setAttribute("form", form);
+		request.getRequestDispatcher("/computersAdd.jsp" ).forward(request, response);
 	}
 }
