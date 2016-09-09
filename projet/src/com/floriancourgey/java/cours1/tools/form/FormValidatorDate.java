@@ -17,7 +17,7 @@ public class FormValidatorDate extends FormValidator {
 		try {
 			format.parse(value);
 		} catch (Exception ex) {
-			error = "La date "+value+" ne correspond pas avec le format "+format;
+			error = "La date "+value+" ne correspond pas avec le format "+format.toPattern();
 		}
 	}
 }
