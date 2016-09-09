@@ -1,13 +1,6 @@
-<%@page import="com.floriancourgey.java.cours1.tools.form.FormValidator"%>
-<%@page import="com.floriancourgey.java.cours1.tools.form.FormGenerator"%>
-<%@page import="com.floriancourgey.java.cours1.tools.form.FormWidget"%>
-<%@page import="java.util.*"%>
-<%@page import="com.floriancourgey.java.cours1.models.Company"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="include/header.jsp" />
-
-<% ArrayList<Company> companies = (ArrayList<Company>) request.getAttribute("companies"); %>
-<% FormGenerator form = (FormGenerator) request.getAttribute("form"); %>
 
 <div class="container-fluid">
 	<div class="row">
@@ -19,33 +12,33 @@
 	<div class="row">
 		<div class="col-md-4">
 			<form role="form" action="" method="POST">
-				<% for(FormWidget widget : form.getWidgets()){ %>
-					<div class="form-group <%= (widget.isValid())?"":"has-error" %>">
-						<label for="name"><%= widget.getLabel() %></label>
+				<c:forEach var="widget" items="${form.getWidgets()}">
+					<div class="form-group ${ widget.isValid() ?"":"has-error" }">
+						<label for="name">${ widget.getLabel() }</label>
 						<input type="text"
 							class="form-control"
-							id="<%= widget.getName() %>" name="<%= widget.getName() %>"
-							value="<%= widget.getValue() %>"
-							<% for (Map.Entry<String, String> entry : widget.getAttributes().entrySet()) { %>
-								<%= entry.getKey() %>="<%= entry.getValue() %>"
-							<% } %>
+							id="${ widget.getName() }" name="${ widget.getName() }"
+							value="${ widget.getValue() }"
+							<c:forEach var="entry" items="${ widget.getAttributes().entrySet() }" >
+								${ entry.getKey() }="${ entry.getValue() }"
+							</c:forEach>
 						>
-						<% if(!widget.isValid()) { %>
+						<c:if test="${ !widget.isValid() }"  >
 							<ul class="help-block">
-								<% for(FormValidator validator : widget.getValidators()){ %>
-									<li><%= validator.getError() %></li>
-								<% } %>
+								<c:forEach var="validator" items="${ widget.getValidators() }">
+									<li>${ validator.getError() }</li>
+								</c:forEach>
 							</ul>
-						<% } %>
+						</c:if>
 					</div>
-				<% } %>
+				</c:forEach>
 				<div class="form-group">
 					<label for="company">Company Name:</label>
 					<div class="input">
 						<select name="company" class="form-control">
-						<% for(Company c : companies){ %>
-							<option value="<%= c.getId() %>"><%= c.getName() %></option>
-						<% } %>
+						<c:forEach var="c" items="${ companies}">
+							<option value="${ c.getId() }">${ c.getName() }</option>
+						</c:forEach>
 						</select>
 					</div>
 				</div>
