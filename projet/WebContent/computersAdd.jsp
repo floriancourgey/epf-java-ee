@@ -1,9 +1,13 @@
+<%@page import="com.floriancourgey.java.cours1.tools.form.FormValidator"%>
+<%@page import="com.floriancourgey.java.cours1.tools.form.FormGenerator"%>
+<%@page import="com.floriancourgey.java.cours1.tools.form.FormWidget"%>
 <%@page import="java.util.*"%>
 <%@page import="com.floriancourgey.java.cours1.models.Company"%>
 
 <jsp:include page="include/header.jsp" />
 
 <% ArrayList<Company> companies = (ArrayList<Company>) request.getAttribute("companies"); %>
+<% FormGenerator form = (FormGenerator) request.getAttribute("form"); %>
 
 <div class="container-fluid">
 	<div class="row">
@@ -15,25 +19,26 @@
 	<div class="row">
 		<div class="col-md-4">
 			<form role="form" action="" method="POST">
-				<div class="form-group">
-					<label for="name">Computer name</label>
-					<input type="text" name="name"
-						class="form-control" id="name" placeholder="Enter name">
-					<p class="help-block">Required</p>
-				</div>
-				<div class="form-group">
-					<label for="introduced">Introduced date</label>
-					<input type="date" name="introduced"
-						class="form-control" id="introduced" pattern="\d{4}-\d{2}-\d{2}"
-						placeholder="Introduced"> <span class="help-block">YYYY-MM-DD</span>
-				</div>
-				<div class="form-group">
-					<label for="discontinued">Discontinued date</label>
-					<input
-						type="date" class="form-control" id="discontinued"
-						pattern="YY-MM-dd" placeholder="Discontinued"> <span
-						class="help-block" name="discontinued">YYYY-MM-DD</span>
-				</div>
+				<% for(FormWidget widget : form.getWidgets()){ %>
+					<div class="form-group <%= (widget.isValid())?"":"has-error" %>">
+						<label for="name"><%= widget.getLabel() %></label>
+						<input type="text"
+							class="form-control"
+							id="<%= widget.getName() %>" name="<%= widget.getName() %>"
+							value="<%= widget.getValue() %>"
+							<% for (Map.Entry<String, String> entry : widget.getAttributes().entrySet()) { %>
+								<%= entry.getKey() %>="<%= entry.getValue() %>"
+							<% } %>
+						>
+						<% if(!widget.isValid()) { %>
+							<ul class="help-block">
+								<% for(FormValidator validator : widget.getValidators()){ %>
+									<li><%= validator.getError() %></li>
+								<% } %>
+							</ul>
+						<% } %>
+					</div>
+				<% } %>
 				<div class="form-group">
 					<label for="company">Company Name:</label>
 					<div class="input">
