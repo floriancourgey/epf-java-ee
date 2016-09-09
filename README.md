@@ -1,3 +1,20 @@
+# My (best) practices
+## Git
+Les commits sont préfixés par
+* + pour un ajout
+* - pour une suppression
+* * pour une modification
+* ! pour un fix
+
+## Todo
+* fixer le computerDao#google qui cherche que les computers avec entreprise non null
+* finir le FormGenerator (FormWidget.TYPE n'est pas géré)
+* computerAdd n'ajoute pas d'entreprise
+* + bower
+* changer le format de la date dans computerAdd (et ajouter jquery Calendar)
+
+Enoncé original
+
 training-computer-database-template
 ============================
 
