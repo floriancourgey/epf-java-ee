@@ -9,6 +9,58 @@ java version "1.8.0_101"
 Java(TM) SE Runtime Environment (build 1.8.0_101-b13)
 Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)
 ```
+## Installation
+La racine du projet Eclipse se trouve dans `projet/`
+
+Il faut lancer un `bower install` en ligne de commande dans `projet/WebContent`
+
+Pour vérifier si le frontend est OK : http://localhost:8080/java-ee-0.0.1-SNAPSHOT/index.html
+
+Pour vérifier si les servlets sont OK : http://localhost:8080/java-ee-0.0.1-SNAPSHOT/test
+
+URL d'accueil : http://localhost:8080/java-ee-0.0.1-SNAPSHOT/computers
+## Bonus
+Je me suis axé sur la création d'un générateur de formulaire (inspiré de [celui de Symfony](http://symfony.com/doc/current/forms.html))
+
+Un formulaire est composé de plusieurs widgets (input, textarea, select..) qui ont chacun une liste de validateurs (ce sont des règles sur leur value="").
+
+A l'envoi du formulaire, les `value` de chaque widget sont validées par les validateurs. Toute erreur nous ramène sur la page du formulaire, avec le détail des erreurs.
+
+### Création du widget
+On crée un widget avec 
+```java
+FormWidget widget = new FormWidget("name") // correspond aux attributs id="" et name=""
+			.setLabel("Name") // nom à afficher dans le <label/>
+			.setType(FormWidget.Type.INPUT) // c'est un input
+			.setValidators(validators) // liste de validateurs (voir ci-dessous)
+			.setAttributes(attributes) // liste d'attributs html supplémentaires (voir ci-dessous)
+```
+
+où `validators` est une liste de validateurs qui sera checkée dans la servlet doPost :
+```java
+ArrayList<FormValidator> validators = new ArrayList<FormValidator>();
+validators.add(new FormValidatorMinLength(6)); // taille max 6
+validators.add(new FormValidatorMaxLength(15)); // taille max 15
+```
+
+et `attributes` une liste d'attributs HTML à écrire dans la JSP
+```java
+HashMap<String, String> attributes = new HashMap<String, String>();
+attributes.put("placeholder", "Enter computer's name");
+attributes.put("required", "required");
+```
+
+### Création du form
+Une fois les widgets créés, on les ajoute au form :
+
+```java
+FormGenerator form = new FormGenerator(new FormWidget[]{
+  widget1,
+	widget2,
+	widget3
+});
+```
+
 ## Conventions Git
 Les commits sont préfixés par
 * + pour un ajout
