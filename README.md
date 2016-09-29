@@ -9,6 +9,7 @@ java version "1.8.0_101"
 Java(TM) SE Runtime Environment (build 1.8.0_101-b13)
 Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)
 ```
+
 ## Installation
 La racine du projet Eclipse se trouve dans `projet/`
 
@@ -19,7 +20,13 @@ Pour vérifier si le frontend est OK : http://localhost:8080/java-ee-0.0.1-SNAPS
 Pour vérifier si les servlets sont OK : http://localhost:8080/java-ee-0.0.1-SNAPSHOT/test
 
 URL d'accueil : http://localhost:8080/java-ee-0.0.1-SNAPSHOT/computers
-## Bonus
+
+## Bonus 1 : Google
+Sur la page d'accueil (/computers), il est possible de rechercher un ordinateur. Cette recherche fonctionne --presque-- comme google : elle est insensible à la casse, elle utilise un LIKE %...% et elle cherche à la fois dans le nom de l'ordinateur et dans le nom de son entreprise.
+
+Ainsi, la recherche `appl` nous donne par exemple des ordinateurs avec pour nom `Apple III` et des ordinateurs avec pour entreprise `Apple Inc.`
+
+## Bonus 2 : Form generator
 Je me suis axé sur la création d'un générateur de formulaire (inspiré de [celui de Symfony](http://symfony.com/doc/current/forms.html))
 
 Un formulaire est composé de plusieurs widgets (input, textarea, select..) qui ont chacun une liste de validateurs (ce sont des règles sur leur value="").
