@@ -10,6 +10,6 @@ public class FormValidatorMinLength extends FormValidator {
 	
 	public void handle(String value) {
 		if(value == null || value.length() < minLength)
-			error = value+" doit contenir au moins "+minLength+" caractères"; 
+			error = "Il faut au minimum "+minLength+" caractères pour ce champ"; 
 	}
 }

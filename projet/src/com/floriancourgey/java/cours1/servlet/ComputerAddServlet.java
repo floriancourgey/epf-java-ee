@@ -18,6 +18,7 @@ import com.floriancourgey.java.cours1.models.Computer;
 import com.floriancourgey.java.cours1.tools.form.FormGenerator;
 import com.floriancourgey.java.cours1.tools.form.FormValidator;
 import com.floriancourgey.java.cours1.tools.form.FormValidatorDate;
+import com.floriancourgey.java.cours1.tools.form.FormValidatorMaxLength;
 import com.floriancourgey.java.cours1.tools.form.FormValidatorMinLength;
 import com.floriancourgey.java.cours1.tools.form.FormWidget;
 
@@ -35,6 +36,7 @@ public class ComputerAddServlet extends HttpServlet {
 		/// NAME
 		ArrayList<FormValidator> nameValidators = new ArrayList<FormValidator>();
 		nameValidators.add(new FormValidatorMinLength(6));
+		nameValidators.add(new FormValidatorMaxLength(50));
 		HashMap<String, String> nameAttributes = new HashMap<String, String>();
 		nameAttributes.put("placeholder", "Enter computer's name");
 		nameAttributes.put("required", "required");
@@ -47,6 +49,7 @@ public class ComputerAddServlet extends HttpServlet {
 		/// INTRODUCED
 		ArrayList<FormValidator> introducedValidators = new ArrayList<FormValidator>();
 		introducedValidators.add(new FormValidatorMinLength(9));
+		introducedValidators.add(new FormValidatorMaxLength(9));
 		introducedValidators.add(new FormValidatorDate(format));
 		HashMap<String, String> introducedAttributes = new HashMap<String, String>();
 		introducedAttributes.put("placeholder", "Enter computer's introduced date");
@@ -60,6 +63,7 @@ public class ComputerAddServlet extends HttpServlet {
 		/// DISCONTINUED
 		ArrayList<FormValidator> discontinuedValidators = new ArrayList<FormValidator>();
 		discontinuedValidators.add(new FormValidatorMinLength(9));
+		discontinuedValidators.add(new FormValidatorMaxLength(9));
 		discontinuedValidators.add(new FormValidatorDate(format));
 		HashMap<String, String> discontinuedAttributes = new HashMap<String, String>();
 		discontinuedAttributes.put("placeholder", "Enter computer's discontinued date");
