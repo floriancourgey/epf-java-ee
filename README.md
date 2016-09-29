@@ -20,7 +20,6 @@ Les commits sont préfixés par
 * fixer le computerDao#google qui cherche que les computers avec entreprise non null
 * finir le FormGenerator (ex : FormWidget.TYPE n'est pas géré)
 * computerAdd n'ajoute pas d'entreprise
-* + bower
 * changer le format de la date dans computerAdd (et ajouter jquery Calendar)
 
 # Enoncé original
