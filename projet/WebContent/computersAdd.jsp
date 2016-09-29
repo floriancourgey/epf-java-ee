@@ -26,7 +26,9 @@
 						<c:if test="${ !widget.isValid() }"  >
 							<ul class="help-block">
 								<c:forEach var="validator" items="${ widget.getValidators() }">
-									<li>${ validator.getError() }</li>
+									<c:if test="${ !validator.isValid() }"  >
+										<li>${ validator.getError() }</li>
+									</c:if>
 								</c:forEach>
 							</ul>
 						</c:if>
