@@ -13,7 +13,7 @@
 		<div class="col-md-4">
 			<form role="form" action="" method="POST">
 				<c:forEach var="widget" items="${form.getWidgets()}">
-					<div class="form-group ${ widget.isValid() ?"":"has-error" }">
+					<div class="form-group ${ widget.isValid() ? "" : "has-error" } ">
 						<label for="name">${ widget.getLabel() }</label>
 						<input type="text"
 							class="form-control"
@@ -45,7 +45,7 @@
 
 				<div class="actions">
 					<button type="submit" class="btn btn-success">Submit</button>
-					or <a href="/projet-java/computers" class="btn btn-danger">Cancel</a>
+					or <a href="${pageContext.request.contextPath}/computers" class="btn btn-danger">Cancel</a>
 				</div>
 			</form>
 		</div>
