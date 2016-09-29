@@ -1,4 +1,7 @@
 # Projet Java EE Florian Courgey
+
+![Screenshot général](/screenshots/computers%20GET.png?raw=true "Screenshot général")
+
 ## Environnement
 - OS : elementary OS 0.4 (basé sur Ubuntu 16.04)
 - IDE : Eclipse neon.1 java EE
@@ -22,11 +25,17 @@ Pour vérifier si les servlets sont OK : http://localhost:8080/java-ee-0.0.1-SNA
 URL d'accueil : http://localhost:8080/java-ee-0.0.1-SNAPSHOT/computers
 
 ## Bonus 1 : Google
+
+![Screenshot google](/screenshots/computers%20GET%20avec%20google=appl.png?raw=true "Screenshot google")
+
 Sur la page d'accueil (/computers), il est possible de rechercher un ordinateur. Cette recherche fonctionne --presque-- comme google : elle est insensible à la casse, elle utilise un LIKE %...% et elle cherche à la fois dans le nom de l'ordinateur et dans le nom de son entreprise.
 
 Ainsi, la recherche `appl` nous donne par exemple des ordinateurs avec pour nom `Apple III` et des ordinateurs avec pour entreprise `Apple Inc.`
 
 ## Bonus 2 : Form generator
+
+![Screenshot form avec erreurs](/screenshots/computers_add%20POST%20avec%20erreurs.png?raw=true "Screenshot form avec erreurs")
+
 Je me suis axé sur la création d'un générateur de formulaire (inspiré de [celui de Symfony](http://symfony.com/doc/current/forms.html))
 
 Un formulaire est composé de plusieurs widgets (input, textarea, select..) qui ont chacun une liste de validateurs (ce sont des règles sur leur value="").
