@@ -16,7 +16,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)
 ## Installation
 La racine du projet Eclipse se trouve dans `projet/`
 
-Il faut lancer un `bower install` en ligne de commande dans `projet/WebContent`
+Il faut lancer un `bower install` en ligne de commande dans `projet/WebContent` (pour installer [bower](https://bower.io/) il faut installer [node js](https://nodejs.org/en/) puis lancer `npm install -g bower`)
 
 Pour vérifier si le frontend est OK : http://localhost:8080/java-ee-0.0.1-SNAPSHOT/index.html
 
